@@ -1,0 +1,57 @@
+@CHARSET "ISO-8859-1";
+
+
+
+body {
+  background-color: seashell;
+  max-width: 500px;
+  margin: auto;
+  font-family: Lucida Sans Unicode;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+}
+
+h1 span { 
+}
+
+h3 {
+  color: black;
+}
+p {
+  color: gray;
+}
+
+.container > * {
+    display: inline-block;
+}
+
+.smallcontainer1 > * {
+  margin-top: 5px;
+}
+
+.smallcontainer2 > * {
+  margin:2px;
+  margin-left: 30px;
+}
+
+.button {
+  background-color: salmon;
+  border: none;
+  color: seashell;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}

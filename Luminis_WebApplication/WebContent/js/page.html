@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<head>
+  		<link rel="stylesheet" href="css/styles.css">
+		<title>Digital patient records</title>
+		
+		<script>
+			function getPatientNrInfo(){
+		//		var name = document.getElementById('name').value;
+				var patientNr = document.getElementById('patientNr').value ;
+				
+				var ajaxRequest = new XMLHttpRequest();
+				ajaxRequest.onreadystatechange = function(){
+					if(ajaxRequest.readyState == 4){
+						if(ajaxRequest.status == 200){
+							var patient = JSON.parse(ajaxRequest.responseText);
+							document.getElementById('name').value = patient.name;
+		//					document.getElementById('patientNr').value = patient.patientNr;
+							document.getElementById('address').value = patient.address;
+							document.getElementById('visitHospital').value = patient.visitHospital;
+							document.getElementById('visitDate').value = patient.visitDate;
+						}
+					}			
+				}
+				ajaxRequest.open('GET', 'http://localhost:8080/Luminis_WebApplication/patients/' + patientNr);
+				ajaxRequest.send();
+			}
+			
+			
+			
+			function setPersonInfo(){
+				var name = document.getElementById('name').value;
+				var patientNr = document.getElementById('patientNr').value;
+				var address = document.getElementById('address').value;
+				var visitHospital = document.getElementById('visitHospital').value;
+				var visitDate = document.getElementById('visitDate').value;
+				
+				var postData = 'name=' + name;
+				postData += '&patientNr=' + encodeURIComponent(patientNr);
+				postData += '&address=' + encodeURIComponent(address);
+				postData += '&visitHospital=' + encodeURIComponent(visitHospital);
+				postData += '&visitDate=' + encodeURIComponent(visitDate);
+				
+				var ajaxRequest = new XMLHttpRequest();
+				ajaxRequest.open('POST', 'http://localhost:8080/Luminis_WebApplication/patients/' + patientNr);
+				ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				ajaxRequest.send(postData);
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h1><span>DIGITAL PATIENT RECORDS </span></h1>
+		<p>Please enter a patient number and click 'Get' to see the patient's details. To register a new patient or to administer a visit,
+		enter the required details and click 'Save'.</p>
+		<p><input type="text" value="Enter patient number" id="patientNr" class="input"><button type="button" onclick="getPatientNrInfo()" class="button">Get</button></p>
+		
+		<div class="container">
+			<div class="smallcontainer1">
+			<h3>Name:</h3>
+				<input type="text" id="name" class="textfield"> 
+			<h3>Address:</h3>
+				<textarea id="address" class="textfield"></textarea>
+				
+			</div>
+			
+				
+			
+
+			<div class="smallcontainer2">
+				<h3>Visits:</h3>
+				<p>Hospital:</p>
+				<textarea id="visitHospital"></textarea>
+				<p>Date:</p>
+				<textarea id="visitDate"></textarea>
+			</div>
+		</div>
+		<p><button type="button" onclick="setPersonInfo()" class="button">Save</button></p>
+	</body>
+</html>
